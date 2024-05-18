@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import employee from "../Model/employee";
+import employee from "../models/employeeModel";
 
 export class EmployeeController {
   async getEmployees(req: Request, res: Response) {
