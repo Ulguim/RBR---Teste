@@ -29,6 +29,9 @@ export default function TextInput({
       render={({ field: { onChange, onBlur, value } }) => (
         <>
           <Input
+            pattern={
+              isDate ? '[0-9]{2}-[0-9]{2}-[0-9]{4}' : undefined
+            }
             type={isDate ? 'date' : 'text'}
             borderColor={errors[name] && 'red.500'}
             placeholder={placeholder}
