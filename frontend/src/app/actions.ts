@@ -27,10 +27,17 @@ export async function createEmployeeAction(data: any) {
   return res.json()
 }
 
-export async function getData() {
-  const res = await fetch(`${apiUrl}employees`, {
-    cache: 'no-store',
-  })
+export async function getData(search?: string, order?: string) {
+  const res = await fetch(
+    `${apiUrl}employees?search=${search}&order=${order}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    },
+  )
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')

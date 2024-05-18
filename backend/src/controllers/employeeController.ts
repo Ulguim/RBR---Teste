@@ -4,7 +4,13 @@ import employee from "../models/employeeModel";
 export class EmployeeController {
   async getEmployees(req: Request, res: Response) {
     try {
-      const Employees = await employee.find();
+      let order = req.query.order || "asc";
+      let search = req.query.search || "";
+      const Employees = await employee
+        .find({ name: new RegExp(String(search), 'i') })
+        .sort({
+          name: order === "asc" ? 1 : -1,
+        });
       return res.status(200).json(Employees);
     } catch (error) {
       console.error(error);

@@ -18,14 +18,16 @@ services:
       - mongo
     networks:
       - mongonetwork
+    env_file:
+      - .env
   mongo:
     image: mongo:latest
     container_name: mongo
     ports:
       - 127.0.0.1:27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
     volumes:
       - mongo-data:/data/db
     networks:
