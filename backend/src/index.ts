@@ -9,7 +9,7 @@ async function bootstrap() {
   app.use(express.json());
 
   try {
-    await mongoose.connect("mongodb://root:password@localhost:27017");
+    await mongoose.connect("mongodb://root:password@mongo:27017",);
     console.log("MongoDB connected...");
   } catch (err) {
     console.log(err);
@@ -17,7 +17,8 @@ async function bootstrap() {
 
   app.use("/api", employeeRoute);
 
-  app.listen(3333, () => console.log("server running on port 3333"));
+
+  app.listen(3000, () => console.log("server running on port 3000"));
 }
 
 bootstrap();
