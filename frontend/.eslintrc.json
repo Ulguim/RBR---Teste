@@ -1,0 +1,132 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "simple-import-sort",
+    "unused-imports",
+    "import"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "next",
+    "next/core-web-vitals"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "root": true,
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": [
+      "off"
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "max-len": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true,
+        "trailingComma": "all",
+        "tabWidth": 2,
+        "semi": false,
+        "printWidth":70
+      }
+    ],
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "react/jsx-first-prop-new-line": [2, "multiline"],
+    "react/jsx-max-props-per-line": [
+      2,
+      { "maximum": 1, "when": "multiline" }
+    ],
+    "react/jsx-indent-props": [2, 2],
+    "import/prefer-default-export": "off",
+    "import/no-named-as-default": "off",
+    "react-hooks/exhaustive-deps": "error",
+    "react/prop-types": 0,
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "react/jsx-props-no-spreading": [
+      "off"
+    ],
+    "react/jsx-fragments": "off",
+    "react/jsx-wrap-multilines": "off",
+    "implicit-arrow-linebreak": "off",
+    "object-curly-newline": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": [
+      "off"
+    ],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          [
+            "^\\u0000"
+          ],
+          [
+            "^react$"
+          ],
+          [
+            "^@?\\w"
+          ],
+          [
+            "^app(/.*|$)"
+          ],
+          [
+            "^\\."
+          ]
+        ]
+      }
+    ],
+    "import/newline-after-import": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "sort-imports": "off",
+    "import/order": "off"
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "build",
+    ".next",
+    "next.config.js"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
