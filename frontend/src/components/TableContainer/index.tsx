@@ -4,12 +4,12 @@ import { deleteEmployeeAction, getData } from '@/app/actions'
 
 export const TableContainer = async () => {
   const HeadRow = [
-    'Name',
+    'Nome',
     'Email',
-    'Department',
-    'Position',
-    'Admission Date',
-    'Actions',
+    'Departamento',
+    'Posição',
+    'Data de Admissão',
+    'Ações',
   ]
   const data = await getData()
 
@@ -18,6 +18,7 @@ export const TableContainer = async () => {
       deleteAction={deleteEmployeeAction}
       HeadRow={HeadRow}
       TableData={data}
+      refetch={getData}
     />
   )
 }

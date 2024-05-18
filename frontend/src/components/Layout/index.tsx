@@ -7,7 +7,7 @@ export const LayoutTemplate = ({
   children: React.ReactNode
 }) => {
   const menuItems = [
-    { label: 'Funcionários', href: '/' },
+    { label: 'Dashboard', href: '/' },
     { label: 'Adicionar Funcionário', href: '/employee' },
   ]
   return (
@@ -52,7 +52,7 @@ export const LayoutTemplate = ({
       <Flex
         height="100%"
         width={'100%'}
-        p={['0px', '10%', '10%']}
+        p={[5, '10%', '10%']}
         justifyContent="center"
         flexDir={'column'}
       >

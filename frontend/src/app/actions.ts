@@ -20,7 +20,6 @@ export async function createEmployeeAction(data: any) {
     },
     body: JSON.stringify(data),
   })
-  console.log(res)
   if (!res.ok) {
     throw new Error('Failed to add employee')
   }
@@ -48,4 +47,19 @@ export async function deleteEmployeeAction(id: string) {
   }
   getData()
   return res?.json()
+}
+
+export async function updateEmployeeAction(id: string, data: any) {
+  const res = await fetch(`${apiUrl}employees/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) {
+    throw new Error('Failed to update employee')
+  }
+
+  return res.json()
 }

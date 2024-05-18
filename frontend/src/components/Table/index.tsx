@@ -1,11 +1,22 @@
 'use client'
+import { useState } from 'react'
+
 import { CloseIcon, EditIcon } from '@chakra-ui/icons'
 import {
+  Button,
   IconButton,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Table,
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -30,10 +41,14 @@ export const TableComponent = ({
   HeadRow,
   TableData,
   deleteAction,
+  refetch,
 }: TableProps) => {
-  console.log('🚀 ~ TableData:', TableData)
   const toast = useToast()
   const router = useRouter()
+  const [modal, setModal] = useState({
+    id: '',
+    isOpen: false,
+  })
   const handleDate = (date: string) => {
     if (!date) return ''
     const newDate = new Date(date)
@@ -44,7 +59,7 @@ export const TableComponent = ({
   }
   const handleDelete = async (id: string) => {
     try {
-      await deleteAction(id)
+      await deleteAction(id).then(() => refetch && refetch())
 
       toast({
         title: 'Funcionário deletado com sucesso',
@@ -53,6 +68,11 @@ export const TableComponent = ({
         isClosable: true,
         position: 'top-right',
       })
+      setModal({
+        id: '',
+        isOpen: false,
+      })
+      router.refresh()
     } catch (err) {
       toast({
         title: 'Erro ao deletar funcionário',
@@ -86,16 +106,24 @@ export const TableComponent = ({
               <Td>{handleDate(item?.admission_date)}</Td>
               <Td>
                 <IconButton
+                  _hover={{
+                    color: 'purple.500',
+                  }}
                   size="sm"
                   aria-label=""
                   onClick={() => router.push(`/employee/${item._id}`)}
                   icon={<EditIcon />}
                 />
                 <IconButton
+                  _hover={{
+                    color: 'purple.500',
+                  }}
                   size="sm"
                   ml={2}
                   aria-label=""
-                  onClick={() => handleDelete(item._id)}
+                  onClick={() =>
+                    setModal({ id: item._id, isOpen: true })
+                  }
                   icon={<CloseIcon />}
                 />
               </Td>
@@ -103,6 +131,43 @@ export const TableComponent = ({
           ))}
         </Tbody>
       </Table>
+      <Modal
+        isCentered
+        isOpen={modal?.isOpen}
+        onClose={() =>
+          setModal({
+            id: '',
+            isOpen: false,
+          })
+        }
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              Você tem certeza que deseja deletar este funcionário?
+            </Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="purple"
+              mr={3}
+              onClick={() => setModal({ id: '', isOpen: false })}
+            >
+              Fechar
+            </Button>
+            <Button
+              onClick={() => handleDelete(modal?.id)}
+              variant="ghost"
+            >
+              Sim, Deletar
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </TableContainer>
   )
 }

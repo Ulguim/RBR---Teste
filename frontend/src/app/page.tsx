@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react'
+import Link from 'next/link'
 
 import { TableContainer } from '@/components/TableContainer'
 
@@ -6,11 +7,17 @@ export default function Home() {
   return (
     <main>
       <Box width="100%" p={0}>
-        <Flex flexDir="row" justifyContent="space-between" mb={5}>
+        <Flex
+          flexDir={['column', 'row']}
+          justifyContent="space-between"
+          mb={5}
+        >
           <Heading>Dashboard</Heading>
-          <Button aria-label="Adicionar" colorScheme="blue">
-            Adicionar
-          </Button>
+          <Link href="/employee">
+            <Button aria-label="Adicionar" colorScheme="purple">
+              Adicionar Funcionário
+            </Button>
+          </Link>
         </Flex>
         <TableContainer />
       </Box>

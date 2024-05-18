@@ -10,7 +10,11 @@ import { useForm } from 'react-hook-form'
 import TextInput from '../TextInput'
 import { employeeFormData, employeeSchema } from './types'
 
-import { createEmployeeAction, getOneEmployee } from '@/app/actions'
+import {
+  createEmployeeAction,
+  getOneEmployee,
+  updateEmployeeAction,
+} from '@/app/actions'
 
 export const EmployeeForm = () => {
   const toast = useToast()
@@ -31,7 +35,12 @@ export const EmployeeForm = () => {
       if (params.slug) {
         try {
           const res = await getOneEmployee(params.slug)
-          reset(res)
+          reset({
+            ...res,
+            admission_date: new Date(res.admission_date)
+              .toISOString()
+              .split('T')[0],
+          })
         } catch (err) {
           console.error('console.error', err)
         }
@@ -44,9 +53,11 @@ export const EmployeeForm = () => {
 
   const onSubmit = async (data: employeeFormData) => {
     try {
-      await createEmployeeAction(data)
-      router.push('/')
-
+      if (!params.slug) {
+        await createEmployeeAction(data)
+      } else {
+        await updateEmployeeAction(params?.slug, data)
+      }
       toast({
         title: 'Funcionário adicionado com sucesso',
         status: 'success',
@@ -57,7 +68,7 @@ export const EmployeeForm = () => {
       router.push('/')
     } catch (err) {
       toast({
-        title: 'Erro ao adicionar funcionário',
+        title: 'Erro ao realizar ação',
         status: 'error',
         duration: 2000,
         isClosable: true,
@@ -115,10 +126,10 @@ export const EmployeeForm = () => {
           />
         </Grid>
         <Flex mt="2" justifyContent="center" gap={2}>
-          <Button w="100%" type="submit">
+          <Button w="100%" type="submit" colorScheme="purple">
             Enviar
           </Button>
-          <Button w="100%" type="reset">
+          <Button onClick={() => router.back()} w="100%" type="reset">
             Cancelar
           </Button>
         </Flex>
